@@ -32,14 +32,14 @@ export default function SwipeCard({
 
   function handleDrag() {
     const xVal = x.get();
-    const threshold = typeof window !== 'undefined' ? window.innerWidth * 0.3 : 120;
+    const threshold = typeof window !== 'undefined' ? window.innerWidth * 0.2 : 80;
     const progress = Math.min(Math.abs(xVal) / threshold, 1) * Math.sign(xVal);
     onDragProgress(progress);
   }
 
   function handleDragEnd() {
     const xVal = x.get();
-    const threshold = typeof window !== 'undefined' ? window.innerWidth * 0.3 : 120;
+    const threshold = typeof window !== 'undefined' ? window.innerWidth * 0.2 : 80;
 
     if (Math.abs(xVal) >= threshold) {
       const direction = xVal > 0 ? 'right' : 'left';
@@ -73,7 +73,7 @@ export default function SwipeCard({
           whileTap={{ scale: 1.02 }}
         >
           <div className="flex items-center justify-center h-full px-8">
-            <p className="text-center text-gray-800 font-medium text-base leading-relaxed">
+            <p className="text-center text-gray-900 font-medium text-lg leading-relaxed">
               {quiz.question}
             </p>
           </div>
@@ -90,7 +90,7 @@ export default function SwipeCard({
           transition={{ duration: 0.3, ease: 'easeIn' }}
         >
           <div className="flex items-center justify-center h-full px-8">
-            <p className="text-center text-gray-800 font-medium text-base leading-relaxed">
+            <p className="text-center text-gray-900 font-medium text-lg leading-relaxed">
               {quiz.question}
             </p>
           </div>

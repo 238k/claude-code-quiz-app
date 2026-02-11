@@ -104,12 +104,12 @@ export default function PlayPage({ params }: Props) {
       <div className="max-w-lg w-full mx-auto flex flex-col flex-1">
         {/* ヘッダー */}
         <div className="flex items-center justify-between px-5 pt-5 pb-2">
-          <span className="text-sm text-gray-500">
+          <span className="text-base font-medium text-gray-700">
             {currentIndex + 1} / {quizzes.length}
           </span>
           <button
             onClick={handleQuit}
-            className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+            className="text-sm text-gray-600 hover:text-gray-800 transition-colors"
           >
             × 終了
           </button>
@@ -120,9 +120,10 @@ export default function PlayPage({ params }: Props) {
           <Character state={characterState} />
         </div>
 
-        {/* 選択肢ラベル + カードエリア */}
-        <div className="flex-1 flex flex-col px-4 pb-8">
-          <div className="flex items-center justify-between mb-3 px-2">
+        {/* 選択肢ゾーン + カードエリア */}
+        <div className="flex-1 flex flex-col px-4 pb-8 gap-3">
+          {/* 選択肢ゾーン（カード上） */}
+          <div className="flex gap-3">
             <ChoiceIndicator
               label="A"
               text={quizzes[currentIndex].optionA}
@@ -156,7 +157,7 @@ export default function PlayPage({ params }: Props) {
             {swipeState === 'Feedback' && feedbackCorrect !== null && (
               <div className="absolute inset-0 flex flex-col items-center justify-center bg-white rounded-3xl shadow-lg border border-gray-100">
                 <span className="text-5xl mb-3">{feedbackCorrect ? '✅' : '❌'}</span>
-                <span className={`text-lg font-bold ${feedbackCorrect ? 'text-green-600' : 'text-red-500'}`}>
+                <span className={`text-2xl font-bold ${feedbackCorrect ? 'text-green-600' : 'text-red-500'}`}>
                   {feedbackCorrect ? '正解！' : '不正解...'}
                 </span>
               </div>
