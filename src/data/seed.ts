@@ -6,7 +6,7 @@ const now = new Date().toISOString();
 export const seedSet: QuizSet = {
   id: generateId(),
   title: '一般常識クイズ',
-  description: '身近な一般常識を問う10問のクイズです。',
+  description: '身近な一般常識を問う7問のクイズです。',
   createdAt: now,
   updatedAt: now,
 };
