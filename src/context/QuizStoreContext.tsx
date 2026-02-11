@@ -8,12 +8,13 @@ import { generateId } from "@/lib/id";
 import { seedQuizzes, seedSet } from "@/data/seed";
 
 interface StoreState {
+  isLoaded: boolean;
   quizzes: Quiz[];
   sets: QuizSet[];
 }
 
 type StoreAction =
-  | { type: "INIT"; payload: StoreState }
+  | { type: "INIT"; payload: Omit<StoreState, "isLoaded"> }
   | { type: "ADD_SET"; payload: QuizSet }
   | { type: "UPDATE_SET"; payload: { id: string; updates: Partial<QuizSet> } }
   | { type: "DELETE_SET"; payload: string }
@@ -24,7 +25,7 @@ type StoreAction =
 function storeReducer(state: StoreState, action: StoreAction): StoreState {
   switch (action.type) {
     case "INIT":
-      return action.payload;
+      return { ...action.payload, isLoaded: true };
     case "ADD_SET":
       return { ...state, sets: [...state.sets, action.payload] };
     case "UPDATE_SET":
@@ -57,7 +58,7 @@ function storeReducer(state: StoreState, action: StoreAction): StoreState {
   }
 }
 
-function loadFromStorage(): StoreState {
+function loadFromStorage(): Omit<StoreState, "isLoaded"> {
   const storedSets = localStore.get<QuizSet[]>(STORAGE_KEYS.SETS);
   if (!storedSets || storedSets.length === 0) {
     const initialSets = [seedSet];
@@ -73,6 +74,7 @@ function loadFromStorage(): StoreState {
 }
 
 interface QuizStoreContextValue {
+  isLoaded: boolean;
   quizzes: Quiz[];
   sets: QuizSet[];
   addSet: (data: Omit<QuizSet, "id" | "createdAt" | "updatedAt">) => QuizSet;
@@ -95,7 +97,7 @@ export const QuizStoreContext = createContext<QuizStoreContextValue | null>(
 );
 
 export function QuizStoreProvider({ children }: { children: React.ReactNode }) {
-  const [state, dispatch] = useReducer(storeReducer, { sets: [], quizzes: [] });
+  const [state, dispatch] = useReducer(storeReducer, { isLoaded: false, sets: [], quizzes: [] });
 
   useEffect(() => {
     dispatch({ type: "INIT", payload: loadFromStorage() });

@@ -24,7 +24,7 @@ export default function CardStack({
   const next = quizzes[currentIndex + 1];
 
   return (
-    <div className="relative w-full h-full">
+    <div className="absolute inset-0">
       {/* 背後のカード */}
       {next && (
         <SwipeCard

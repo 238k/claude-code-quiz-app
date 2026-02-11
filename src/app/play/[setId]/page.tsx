@@ -101,65 +101,67 @@ export default function PlayPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
-      {/* ヘッダー */}
-      <div className="flex items-center justify-between px-5 pt-5 pb-2">
-        <span className="text-sm text-gray-500">
-          {currentIndex + 1} / {quizzes.length}
-        </span>
-        <button
-          onClick={handleQuit}
-          className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
-        >
-          × 終了
-        </button>
-      </div>
-
-      {/* キャラクター */}
-      <div className="flex justify-center py-3">
-        <Character state={characterState} />
-      </div>
-
-      {/* 選択肢ラベル + カードエリア */}
-      <div className="flex-1 flex flex-col px-4 pb-8">
-        <div className="flex items-center justify-between mb-3 px-2">
-          <ChoiceIndicator
-            label="A"
-            text={quizzes[currentIndex].optionA}
-            side="left"
-            progress={leftProgress}
-            onTap={() => handleTapChoice('left')}
-          />
-          <ChoiceIndicator
-            label="B"
-            text={quizzes[currentIndex].optionB}
-            side="right"
-            progress={rightProgress}
-            onTap={() => handleTapChoice('right')}
-          />
+      <div className="max-w-lg w-full mx-auto flex flex-col flex-1">
+        {/* ヘッダー */}
+        <div className="flex items-center justify-between px-5 pt-5 pb-2">
+          <span className="text-sm text-gray-500">
+            {currentIndex + 1} / {quizzes.length}
+          </span>
+          <button
+            onClick={handleQuit}
+            className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            × 終了
+          </button>
         </div>
 
-        {/* カードスタック */}
-        <div className="relative flex-1 min-h-48 max-h-72">
-          {swipeState !== 'Feedback' && (
-            <CardStack
-              quizzes={quizzes}
-              currentIndex={currentIndex}
-              onSwipeConfirm={handleSwipeConfirm}
-              onDragStart={handleDragStart}
-              onDragCancel={handleDragCancel}
-              onDragProgress={handleDragProgress}
-            />
-          )}
+        {/* キャラクター */}
+        <div className="flex justify-center py-3">
+          <Character state={characterState} />
+        </div>
 
-          {/* フィードバックオーバーレイ */}
-          {swipeState === 'Feedback' && feedbackCorrect !== null && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-white rounded-3xl shadow-lg border border-gray-100">
-              <span className="text-5xl mb-3">{feedbackCorrect ? '✅' : '❌'}</span>
-              <span className={`text-lg font-bold ${feedbackCorrect ? 'text-green-600' : 'text-red-500'}`}>
-                {feedbackCorrect ? '正解！' : '不正解...'}
-              </span>
-            </div>
-          )}
+        {/* 選択肢ラベル + カードエリア */}
+        <div className="flex-1 flex flex-col px-4 pb-8">
+          <div className="flex items-center justify-between mb-3 px-2">
+            <ChoiceIndicator
+              label="A"
+              text={quizzes[currentIndex].optionA}
+              side="left"
+              progress={leftProgress}
+              onTap={() => handleTapChoice('left')}
+            />
+            <ChoiceIndicator
+              label="B"
+              text={quizzes[currentIndex].optionB}
+              side="right"
+              progress={rightProgress}
+              onTap={() => handleTapChoice('right')}
+            />
+          </div>
+
+          {/* カードスタック */}
+          <div className="relative flex-1 min-h-48 max-h-72">
+            {swipeState !== 'Feedback' && (
+              <CardStack
+                quizzes={quizzes}
+                currentIndex={currentIndex}
+                onSwipeConfirm={handleSwipeConfirm}
+                onDragStart={handleDragStart}
+                onDragCancel={handleDragCancel}
+                onDragProgress={handleDragProgress}
+              />
+            )}
+
+            {/* フィードバックオーバーレイ */}
+            {swipeState === 'Feedback' && feedbackCorrect !== null && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-white rounded-3xl shadow-lg border border-gray-100">
+                <span className="text-5xl mb-3">{feedbackCorrect ? '✅' : '❌'}</span>
+                <span className={`text-lg font-bold ${feedbackCorrect ? 'text-green-600' : 'text-red-500'}`}>
+                  {feedbackCorrect ? '正解！' : '不正解...'}
+                </span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
