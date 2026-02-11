@@ -1,0 +1,92 @@
+import { Quiz, QuizSet } from '@/types';
+import { generateId } from '@/lib/id';
+
+const now = new Date().toISOString();
+
+export const seedSet: QuizSet = {
+  id: generateId(),
+  title: '一般常識クイズ',
+  description: '身近な一般常識を問う10問のクイズです。',
+  createdAt: now,
+  updatedAt: now,
+};
+
+export const seedQuizzes: Quiz[] = [
+  {
+    id: generateId(),
+    setId: seedSet.id,
+    question: '日本の首都はどこですか？',
+    optionA: '東京',
+    optionB: '大阪',
+    correctAnswer: 'A',
+    explanation: '日本の首都は東京です。1869年に京都から遷都されました。',
+    createdAt: now,
+    updatedAt: now,
+  },
+  {
+    id: generateId(),
+    setId: seedSet.id,
+    question: '水の化学式はどれですか？',
+    optionA: 'H₂O',
+    optionB: 'CO₂',
+    correctAnswer: 'A',
+    explanation: '水の化学式はH₂O（水素2原子と酸素1原子）です。CO₂は二酸化炭素です。',
+    createdAt: now,
+    updatedAt: now,
+  },
+  {
+    id: generateId(),
+    setId: seedSet.id,
+    question: '1年は何日ですか？（通常の年）',
+    optionA: '365日',
+    optionB: '366日',
+    correctAnswer: 'A',
+    explanation: '通常の年は365日です。4年に1度の閏年のみ366日になります。',
+    createdAt: now,
+    updatedAt: now,
+  },
+  {
+    id: generateId(),
+    setId: seedSet.id,
+    question: '太陽に最も近い惑星はどれですか？',
+    optionA: '水星',
+    optionB: '金星',
+    correctAnswer: 'A',
+    explanation: '太陽に最も近い惑星は水星です。金星は2番目に近い惑星です。',
+    createdAt: now,
+    updatedAt: now,
+  },
+  {
+    id: generateId(),
+    setId: seedSet.id,
+    question: '富士山の高さはどちらが正しいですか？',
+    optionA: '3776m',
+    optionB: '3776km',
+    correctAnswer: 'A',
+    explanation: '富士山の高さは3776メートル（m）です。日本最高峰の山です。',
+    createdAt: now,
+    updatedAt: now,
+  },
+  {
+    id: generateId(),
+    setId: seedSet.id,
+    question: '光の速さはおよそどのくらいですか？',
+    optionA: '約30万km/s',
+    optionB: '約3万km/s',
+    correctAnswer: 'A',
+    explanation: '光の速さは真空中でおよそ約30万km/s（正確には約299,792km/s）です。',
+    createdAt: now,
+    updatedAt: now,
+  },
+  {
+    id: generateId(),
+    setId: seedSet.id,
+    question: 'モナ・リザを描いた画家は誰ですか？',
+    optionA: 'レオナルド・ダ・ヴィンチ',
+    optionB: 'ミケランジェロ',
+    correctAnswer: 'A',
+    explanation: 'モナ・リザはイタリアの画家レオナルド・ダ・ヴィンチが1503〜1506年頃に描いた作品です。',
+    createdAt: now,
+    updatedAt: now,
+  },
+];
