@@ -34,7 +34,7 @@ export default function ChoiceIndicator({ label, text, side, progress, onTap }: 
         <span className={`text-2xl font-bold ${accentColor}`}>{isLeft ? '←' : '→'}</span>
         <span className={`text-xl font-bold ${accentColor}`}>{label}</span>
       </div>
-      <span className="text-base text-gray-700 leading-snug line-clamp-3 text-left">
+      <span className="text-base text-gray-900 leading-snug line-clamp-3 text-left">
         {text}
       </span>
     </button>

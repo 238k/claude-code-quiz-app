@@ -107,16 +107,24 @@ export default function PlayPage({ params }: Props) {
     <div className="min-h-screen bg-slate-50 flex flex-col">
       <div className="max-w-lg w-full mx-auto flex flex-col flex-1">
         {/* ヘッダー */}
-        <div className="flex items-center justify-between px-5 pt-5 pb-2">
-          <span className="text-base font-medium text-gray-700">
-            {currentIndex + 1} / {quizzes.length}
-          </span>
-          <button
-            onClick={handleQuit}
-            className="text-sm text-gray-600 hover:text-gray-800 transition-colors"
-          >
-            × 終了
-          </button>
+        <div className="px-5 pt-5 pb-2">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-base font-medium text-gray-700">
+              {currentIndex + 1} / {quizzes.length}
+            </span>
+            <button
+              onClick={handleQuit}
+              className="text-sm text-gray-600 hover:text-gray-800 transition-colors"
+            >
+              × 終了
+            </button>
+          </div>
+          <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-indigo-500 rounded-full transition-all duration-300"
+              style={{ width: `${((currentIndex + 1) / quizzes.length) * 100}%` }}
+            />
+          </div>
         </div>
 
         {/* キャラクター */}
@@ -145,7 +153,7 @@ export default function PlayPage({ params }: Props) {
           </div>
 
           {/* カードスタック */}
-          <div className="relative flex-1 min-h-48 max-h-72">
+          <div className="relative flex-1 min-h-48">
             {swipeState !== 'Feedback' && (
               <CardStack
                 quizzes={quizzes}

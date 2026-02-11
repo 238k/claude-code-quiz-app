@@ -39,7 +39,7 @@ export default function Home() {
                   className="bg-white rounded-2xl shadow-sm border border-gray-100 px-5 py-4 flex items-center justify-between"
                 >
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-gray-800 text-sm truncate">{set.title}</p>
+                    <p className="font-semibold text-gray-800 text-base truncate">{set.title}</p>
                     {set.description && (
                       <p className="text-xs text-gray-500 mt-0.5 truncate">{set.description}</p>
                     )}
