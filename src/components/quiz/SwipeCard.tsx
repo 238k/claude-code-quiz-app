@@ -32,14 +32,14 @@ export default function SwipeCard({
 
   function handleDrag() {
     const xVal = x.get();
-    const threshold = typeof window !== 'undefined' ? window.innerWidth * 0.2 : 80;
+    const threshold = typeof window !== 'undefined' ? window.innerWidth * 0.15 : 60;
     const progress = Math.min(Math.abs(xVal) / threshold, 1) * Math.sign(xVal);
     onDragProgress(progress);
   }
 
   function handleDragEnd() {
     const xVal = x.get();
-    const threshold = typeof window !== 'undefined' ? window.innerWidth * 0.2 : 80;
+    const threshold = typeof window !== 'undefined' ? window.innerWidth * 0.15 : 60;
 
     if (Math.abs(xVal) >= threshold) {
       const direction = xVal > 0 ? 'right' : 'left';

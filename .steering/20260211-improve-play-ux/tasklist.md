@@ -4,7 +4,7 @@
 
 ### Task 1: SwipeCard — スワイプ閾値を緩和
 - [x] `src/components/quiz/SwipeCard.tsx`
-  - `handleDrag` と `handleDragEnd` 内の `threshold` を `window.innerWidth * 0.3` → `window.innerWidth * 0.2` に変更
+  - `handleDrag` と `handleDragEnd` 内の `threshold` を `window.innerWidth * 0.3` → `window.innerWidth * 0.15`（追加要望により更に緩和）に変更
 
 ### Task 2: ChoiceIndicator — ドロップゾーンデザインに刷新
 - [x] `src/components/quiz/ChoiceIndicator.tsx`
@@ -26,3 +26,9 @@
 
 ### Task 5: 品質チェック
 - [x] `npm run lint` — エラー 0 件を確認
+
+## 追加修正（実装レビュー時）
+
+- [x] `src/context/QuizStoreContext.tsx` — `isLoaded` を Provider value に追加（定義はあったが渡し忘れ）
+- [x] `src/app/play/[setId]/page.tsx` — `isLoaded` チェックを追加してローディング中フラッシュを防止
+- [x] `src/app/admin/set/[id]/edit/page.tsx` — `formData` 初期化バグ修正。フォーム状態を `EditSetForm` 子コンポーネントに切り出し、`set` 確定後に `useState` が正しく初期化されるよう変更

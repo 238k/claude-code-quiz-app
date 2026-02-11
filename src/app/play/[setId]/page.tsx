@@ -16,7 +16,7 @@ const FEEDBACK_DURATION = 1300;
 export default function PlayPage({ params }: Props) {
   const { setId } = use(params);
   const router = useRouter();
-  const { sets, getQuizzesBySetId } = useQuizStore();
+  const { isLoaded, sets, getQuizzesBySetId } = useQuizStore();
   const { initSession, addRecord, clearSession } = useAnswerSession();
 
   const set = sets.find((s) => s.id === setId);
@@ -31,6 +31,10 @@ export default function PlayPage({ params }: Props) {
   useEffect(() => {
     initSession();
   }, [initSession]);
+
+  if (!isLoaded) {
+    return <div className="min-h-screen bg-slate-50" />;
+  }
 
   if (!set || quizzes.length === 0) {
     return (

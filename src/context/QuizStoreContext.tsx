@@ -197,6 +197,7 @@ export function QuizStoreProvider({ children }: { children: React.ReactNode }) {
   return (
     <QuizStoreContext.Provider
       value={{
+        isLoaded: state.isLoaded,
         quizzes: state.quizzes,
         sets: state.sets,
         addSet,

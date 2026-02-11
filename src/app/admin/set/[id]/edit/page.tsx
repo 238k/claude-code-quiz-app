@@ -6,34 +6,27 @@ import Link from 'next/link';
 import { useQuizStore } from '@/hooks/useQuizStore';
 import SetForm from '@/components/admin/SetForm';
 import QuizList from '@/components/admin/QuizList';
-import { Quiz } from '@/types';
+import { Quiz, QuizSet } from '@/types';
 
 type Props = { params: Promise<{ id: string }> };
 
-export default function EditSetPage({ params }: Props) {
-  const { id } = use(params);
-  const router = useRouter();
-  const { sets, getQuizzesBySetId, updateSet, addQuiz, updateQuiz, deleteQuiz } = useQuizStore();
+type FormProps = {
+  id: string;
+  set: QuizSet;
+  quizzes: Quiz[];
+  updateSet: (id: string, updates: Partial<Omit<QuizSet, 'id' | 'createdAt'>>) => void;
+  addQuiz: (data: Omit<Quiz, 'id' | 'createdAt' | 'updatedAt'>) => Quiz;
+  updateQuiz: (id: string, updates: Partial<Omit<Quiz, 'id' | 'createdAt'>>) => void;
+  deleteQuiz: (id: string) => void;
+  onDone: () => void;
+};
 
-  const set = sets.find((s) => s.id === id);
-  const quizzes = getQuizzesBySetId(id);
-
+function EditSetForm({ id, set, quizzes, updateSet, addQuiz, updateQuiz, deleteQuiz, onDone }: FormProps) {
   const [formData, setFormData] = useState({
-    title: set?.title ?? '',
-    description: set?.description ?? '',
+    title: set.title,
+    description: set.description ?? '',
   });
   const [error, setError] = useState('');
-
-  if (!set) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-gray-500 mb-4">セットが見つかりません</p>
-          <Link href="/admin" className="text-indigo-600 text-sm">管理画面へ戻る</Link>
-        </div>
-      </div>
-    );
-  }
 
   function handleSave() {
     if (!formData.title.trim()) {
@@ -41,7 +34,7 @@ export default function EditSetPage({ params }: Props) {
       return;
     }
     updateSet(id, { title: formData.title.trim(), description: formData.description.trim() || undefined });
-    router.push('/admin');
+    onDone();
   }
 
   function handleAddQuiz(data: Omit<Quiz, 'id' | 'setId' | 'createdAt' | 'updatedAt'>) {
@@ -82,5 +75,40 @@ export default function EditSetPage({ params }: Props) {
         </button>
       </div>
     </div>
+  );
+}
+
+export default function EditSetPage({ params }: Props) {
+  const { id } = use(params);
+  const router = useRouter();
+  const { isLoaded, sets, getQuizzesBySetId, updateSet, addQuiz, updateQuiz, deleteQuiz } = useQuizStore();
+
+  if (!isLoaded) {
+    return <div className="min-h-screen bg-gray-50" />;
+  }
+
+  const set = sets.find((s) => s.id === id);
+  if (!set) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-gray-500 mb-4">セットが見つかりません</p>
+          <Link href="/admin" className="text-indigo-600 text-sm">管理画面へ戻る</Link>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <EditSetForm
+      id={id}
+      set={set}
+      quizzes={getQuizzesBySetId(id)}
+      updateSet={updateSet}
+      addQuiz={addQuiz}
+      updateQuiz={updateQuiz}
+      deleteQuiz={deleteQuiz}
+      onDone={() => router.push('/admin')}
+    />
   );
 }
